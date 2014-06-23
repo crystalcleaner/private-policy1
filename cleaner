@@ -1,0 +1,27 @@
+#!/bin/bash
+
+echo " shoose a name included in all the files that u want them in the same directory "
+read name  #get the input of the user
+
+for entry in * #get the entry in the current dorectory 
+do
+	move=true
+	case $entry in 
+		*"$name"*) #check if any of the entry has the input name
+			mkdir -p "$name" #create a directory with the innput name to put the files in	
+			for song in "$directory"/*
+			do
+				if [ "$entry" == "$song" ]; then #check if the song already exists in the directory
+					move=false
+					echo "$entry already exists";
+				fi		
+			done
+			if [ "$move" == true ]; then #if the song don't exists then move it 
+			mv "$entry" "$name"
+				echo -e "move $entry"
+			fi
+		 ;;
+		*)
+	esac
+done
+
